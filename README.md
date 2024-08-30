@@ -295,7 +295,7 @@ _Для тестирования REST-API сервиса посредством 
 |-------|----------|
 | `/FiscalDrive/List` | Получить список подключенных ФМ |
 | `/FiscalDrive/Info/{FactoryID}` | Получить информацию о ФМ |
-| `/FiscalDrive/SyncState/{FactoryID}` | Синхронизировать состояние ФМ с сервером для установки серверного времени, разблокировки и др. |
+| `/FiscalDrive/State/Sync/{FactoryID}` | Синхронизировать состояние ФМ с сервером для установки серверного времени, разблокировки и др. |
 | `/FiscalDrive/FiscalMemory/Info/{FactoryID}` | Получить информацию о фискальной памяти ФМ |
 | `/FiscalDrive/ZReport/Open/{FactoryID}` | Открыть ZReport |
 | `/FiscalDrive/ZReport/Close/{FactoryID}` | Закрыть ZReport |
@@ -304,8 +304,12 @@ _Для тестирования REST-API сервиса посредством 
 | `/FiscalDrive/Receipt/GetTXID/{FactoryID}` | Записать в БД JSON-чек и получить TXID (идентификатор чека в БД) |
 | `/FiscalDrive/Receipt/RegisterTXID/{FactoryID}` | Зарегистрировать JSON-чек по TXID в ФМ. Данный метод можно вызывать повторно, в случае сбоя соединения с ФМ. |
 | `/FiscalDrive/Receipt/Info/{FactoryID}` | Получить информацию о Receipt |
-| `/DataBase/Files/List/{FactoryID}/{Limit}/{Offset}` | Получить список файлов в БД |
-| `/DataBase/Files/Sync/{FactoryID}` | Отправка файлов из БД и ФМ на сервер ОФД и получение ответный файлов и передача их в ФМ |
+| `/DataBase/Files/Count` | Получить кол-во файлов в БД |
+| `/DataBase/Files/Status/Reset` | Сбросить состояние файла в БД, для последующей повториной её отправки на сервер ОФД |
+| `/DataBase/Files/List/{FactoryID}/{Limit}/{Offset}` | Получить список файлов в БД и их состояния |
+| `/DataBase/Files/Sync/FullReceipts/{FactoryID}` | Отправка файлов типа FullReceipt из БД на сервер ОФД и получение ответный файлов и передача их в ФМ |
+| `/DataBase/Files/Sync/ZReports/{FactoryID}` | Отправка файлов типа ZReportFile из ФМ на сервер ОФД и получение ответный файлов и передача их в ФМ |
+| `/DataBase/Files/Sync/Receipts/{FactoryID}` | Отправка файлов типа ReceiptFile из ФМ на сервер ОФД и получение ответный файлов и передача их в ФМ |
 | `/Auth/SignChallenge/{FactoryID}` | Применяется для аутентификации по ФМ на сайте (или API) который поддерживает данную функцию, API сайта возвращает Challenge который передается в ФМ, ФМ возвращает подписанный ответ. Подписанный ответ следует отправить на API сайта для верификации и получения Access-Token. Далее по Access-Token вызывает закрытые методы API сайта. |
 | `/POS/Lock/{FactoryID}` | Устанавливает секретный ключ ЦТО в ФМ. При вызове метода передается сам секретный ключ и его хеш SHA-256. После установки ключа для каждой операций открытии/закрытии ZReport или регистрации чека нужно передавать ключ аутентификации в HTTP-заголовке `X-POS-Auth` который вычисляется как `POSAuth = SHA-256(секретный ключ + POSChallenge)`. Разблокировка возможно только по команде сервера ОФД. |
 | `/POS/Challenge/{FactoryID}` | Для получения `POSChallenge`. Меняется после каждой операции открытии/закрытии ZReport или регистрации чека. |
