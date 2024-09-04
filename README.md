@@ -327,7 +327,7 @@ _Для тестирования REST-API сервиса посредством 
 ## JSON-чек
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | Time | string | Текущая дата, время регистрации чека (формат ГГГГ-ММ-ДД ЧС-МН-СК) |
 | ReceivedCash | uint64 | Наличная сумма полученная от продажи в тийин |
 | ReceivedCard | uint64 | Безналичная сумма полученная от продажи в тийин |
@@ -341,14 +341,14 @@ _Для тестирования REST-API сервиса посредством 
 #### Location
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | Latitude | float64 | Широта |
 | Longitude | float64 | Долгота |
 
 #### Item
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | Name | string | Наименование товара или услуги |
 | Barcode | string | Товарный код |
 | Label | string | Код маркировки |
@@ -367,14 +367,14 @@ _Для тестирования REST-API сервиса посредством 
 #### CommissionInfo
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | TIN | string | ИНН |
 | PINFL | string | ПИНФЛ |
 
 #### ExtraInfo
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | TIN | string | ИНН |
 | PINFL | string | ПИНФЛ |
 | PhoneNumber | string | №. Телефона (формат 998XXYYYAABB) |
@@ -388,7 +388,7 @@ _Для тестирования REST-API сервиса посредством 
 #### RefundInfo
 
 | Поле | Тип | Описание |
-|------|-----|----------|
+|------|:---:|----------|
 | TerminalID | string | Сер.№ ФМ где был зарегистрирован отзываемый чек |
 | ReceiptSeq | uint64 | Номер отзываемого чека |
 | DateTime | string | Дата, время отзываемого чека (формат ГГГГММДДЧСМНСК) |
@@ -425,7 +425,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     ```
 - Откройте адрес в браузере http://127.0.0.1:3449/swagger/index.html.
 - Откройте вкадку `/FiscalDrive/List`, нажмите `Try it out`, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     [
         {
             "ReaderName": "127.0.0.1:4387",
@@ -439,7 +439,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     где:
     * `FactoryID` - заводской номер ФМ (в данном случае эмулятора). Скопируйте значение этого поля в блокнот для последующей вставки.
 - Откройте вкадку `/FiscalDrive/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "AppletVersion": "0400",
         "TerminalID": "ZZ000000000000",
@@ -461,7 +461,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
 - Откройте вкадку `/FiscalDrive/State/Sync/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Для проверки состояния выполните операцию `/FiscalDrive/Info/{FactoryID}` и убедитесь что поле изменилось на `Locked: false`.
 - Откройте вкадку `/FiscalDrive/ZReport/Open/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет открыт ZReport в ФМ и можно будет регистрировать чеки.
 - Откройте вкадку `/FiscalDrive/Receipt/GetTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `JsonReceipt` введите чек в формате JSON (или сгенерируйте командой `fiscal-drive-service.exe devtool receipt generate`, скопируйте и вставьте) например:
-    ```
+    ```json
     {
         "ReceivedCash": 50000,
         "ReceivedCard": 50000,
@@ -520,7 +520,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     ```
     нажмите `Execute`. В разделе `Server response` появится номер чека в БД - `TXID`.
 - Откройте вкадку `/FiscalDrive/Receipt/RegisterTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `TXID` номер чека в БД (от предыдущей операции), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "TerminalID": "ZZ000000000000",
         "ReceiptSeq": 1,
@@ -534,7 +534,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     
     Если при выполнении возник сбой соединения с ФМ, то данную операцию можно выполнить повторно (после восстановления соединения), если во время сбоя ФМ незарегистрировал чек то он зарегистрирует и вернет ответ, а если этот чек уже был заристрирован в ФМ то ФМ вернет ответ от прежней регистрации (**не будет создан дубликат или пустой чек**).
 - Для того чтобы получить информацию об уже зарегистрированных чеков в ФМ (который еще не стерлись из памяти ФМ после отправки их на сервер ОФД), то откройте вкадку `/FiscalDrive/Receipt/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс чека в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "TerminalID": "ZZ000000000000",
         "ReceiptSeq": 1,
@@ -550,7 +550,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     ```
 - Для того чтобы закрыть ZReport, откройте вкадку `/FiscalDrive/ZReport/Close/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет закрыть ZReport в ФМ.
 - Для того чтобы получить информацию о ZReport в ФМ, то откройте вкадку `/FiscalDrive/ZReport/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "TerminalID": "ZZ000000000000",
         "OpenTime": "2024-09-04 09:39:14",
@@ -574,7 +574,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     }
     ```
 - Для того чтобы получить информацию о фискальной памяти в ФМ, то откройте вкадку `/FiscalDrive/FiscalMemory/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "TerminalID": "ZZ000000000000",
         "ReceiptSeq": 1,
@@ -604,7 +604,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     * `ReceiptsCount` - кол-во чеков в ФМ которые еще не были отправлены на сервер ОФД.
     * `***Accomulator` - общая накопленная сумма.
 - Для того чтобы отправить файлы чеков из БД на сервер ОФД, то откройте вкадку `/DataBase/Files/Sync/FullReceipts/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "Items": [
             {
@@ -619,14 +619,14 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     где:
     * `StatusText: Acknowledged` - файл чека был отправлен на сервер ОФД и ответ от него успешно принят ФМ и ФМ стер чек из памяти. Выполните операцию `/FiscalDrive/FiscalMemory/Info/{FactoryID}` и убедитесь что поле стало `ReceiptsCount: 0`. 
 - Для того чтобы узнать индексы ZReport которые еще не были отправлены на сервер ОФД, то то откройте вкадку `/FiscalDrive/ZReport/UnackowledgedIndexes/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     [
         0
     ]
     ```
     в данном ответе ZReport с индексом 0 еще не были отправлены на сервер ОФД.
 - Для того чтобы отправить ZReport из ФМ на сервер ОФД, то откройте вкадку `/DataBase/Files/Sync/ZReports/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
-    ```
+    ```json
     {
         "Items": [
             {
