@@ -398,11 +398,11 @@ _Для тестирования REST-API сервиса посредством 
 
 **Поля чека должны выполнять условия следующего уравнения:**
 
-$ ReceivedCard + ReceivedCash - \sum_{i=1}^{N} Price_i - Discount_i - Other_i \le 10000 $
+$$ReceivedCard + ReceivedCash - \sum_{i=1}^{N} Price_i - Discount_i - Other_i \le 10000$$
 
-$ Price_i - Discount_i - Other_i \ge 0 $
+$$Price_i - Discount_i - Other_i \ge 0$$
 
-$ ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0 $
+$$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
 
 
 ## Порядок тестирования
