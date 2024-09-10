@@ -408,17 +408,17 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
 ## Порядок тестирования
 
 - Установите FiscalDriveService от имени Администратора на компьютер разработчика, если уже установлено, то остановите Windows-службу “FiscalDriveService”.
-- Откройте командную строку cmd.exe и перейдите в директорию установки ПО FiscalDriveService.
+- Откройте командную строку cmd.exe (от имени Администратора) и перейдите в директорию установки ПО FiscalDriveService.
 - Запустите эмулятор ФМ командой: 
     ```
     fiscal-drive-service.exe devtool fiscal-drive-emulator
     ```
-- Откройте новую командную строку cmd.exe и перейдите в директорию установки ПО FiscalDriveService.
+- Откройте новую командную строку cmd.exe (от имени Администратора) и перейдите в директорию установки ПО FiscalDriveService.
 - Запустите тестовый сервер командой:
     ```
     fiscal-drive-service.exe devtool test-server -e 7
     ```
-- Откройте новую командную строку cmd.exe и перейдите в директорию установки ПО FiscalDriveService.
+- Откройте новую командную строку cmd.exe (от имени Администратора) и перейдите в директорию установки ПО FiscalDriveService.
 - Запустите REST-API командой:
     ```
     fiscal-drive-service.exe api config.ini -o - -e 7 --server-address 127.0.0.1:13447 --use-fiscal-drive-emulator-address 127.0.0.1:4387
