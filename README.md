@@ -424,7 +424,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     fiscal-drive-service.exe api config.ini -o - -e 7 --server-address 127.0.0.1:13447 --use-fiscal-drive-emulator-address 127.0.0.1:4387
     ```
 - Откройте адрес в браузере http://127.0.0.1:3449/swagger/index.html.
-- Откройте вкадку `/FiscalDrive/List`, нажмите `Try it out`, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Откройте вкладку `/FiscalDrive/List`, нажмите `Try it out`, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     [
         {
@@ -438,7 +438,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     ```
     где:
     * `FactoryID` - заводской номер ФМ (в данном случае эмулятора). Скопируйте значение этого поля в блокнот для последующей вставки.
-- Откройте вкадку `/FiscalDrive/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Откройте вкладку `/FiscalDrive/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "AppletVersion": "0400",
@@ -458,9 +458,9 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     где:
     * `Locked: true` означает что ФМ блокирован (и нет возможности открыть/закрыть ZReport и зарегистрировать чек в ФМ). Для разблокировки нужно выполнить операцию `/FiscalDrive/State/Sync/{FactoryID}`, но для этого оператор ОФД должен будет разрешить разблокировку для этого ФМ. Тестовый сервер имеет свой API для разблокировки тестового или эмулятора ФМ.
 - Для разблокировки ФМ со стороны оператора ОФД на тестовом сервере откройте адрес в браузере http://127.0.0.1:13448/state. Установите значения `ChangeLockState = Yes`,  `LockState = Unlock` и нажмите кнопку `Set`. После этого следует выполнить синхронизацию состояния на стороне ФМ.
-- Откройте вкадку `/FiscalDrive/State/Sync/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Для проверки состояния выполните операцию `/FiscalDrive/Info/{FactoryID}` и убедитесь что поле изменилось на `Locked: false`.
-- Откройте вкадку `/FiscalDrive/ZReport/Open/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет открыт ZReport в ФМ и можно будет регистрировать чеки.
-- Откройте вкадку `/FiscalDrive/Receipt/GetTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `JsonReceipt` введите чек в формате JSON (или сгенерируйте командой `fiscal-drive-service.exe devtool receipt generate`, скопируйте и вставьте) например:
+- Откройте вкладку `/FiscalDrive/State/Sync/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Для проверки состояния выполните операцию `/FiscalDrive/Info/{FactoryID}` и убедитесь что поле изменилось на `Locked: false`.
+- Откройте вкладку `/FiscalDrive/ZReport/Open/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет открыт ZReport в ФМ и можно будет регистрировать чеки.
+- Откройте вкладку `/FiscalDrive/Receipt/GetTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `JsonReceipt` введите чек в формате JSON (или сгенерируйте командой `fiscal-drive-service.exe devtool receipt generate`, скопируйте и вставьте) например:
     ```json
     {
         "ReceivedCash": 50000,
@@ -519,7 +519,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     }
     ```
     нажмите `Execute`. В разделе `Server response` появится номер чека в БД - `TXID`.
-- Откройте вкадку `/FiscalDrive/Receipt/RegisterTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `TXID` номер чека в БД (от предыдущей операции), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Откройте вкладку `/FiscalDrive/Receipt/RegisterTXID/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `TXID` номер чека в БД (от предыдущей операции), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "TerminalID": "ZZ000000000000",
@@ -533,7 +533,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     * `QRCodeURL` - URL адрес ссылки для проверки чека. Должен быть напечатан в виде QR-кода на чеке. Данный JSON-ответ должен быть сохранен в БД ПО Кассы и будет нужен в случае выполнения операции возврат по чеку. 
     
     Если при выполнении возник сбой соединения с ФМ, то данную операцию можно выполнить повторно (после восстановления соединения), если во время сбоя ФМ незарегистрировал чек то он зарегистрирует и вернет ответ, а если этот чек уже был заристрирован в ФМ то ФМ вернет ответ от прежней регистрации (**не будет создан дубликат или пустой чек**).
-- Для того чтобы получить информацию об уже зарегистрированных чеков в ФМ (который еще не стерлись из памяти ФМ после отправки их на сервер ОФД), то откройте вкадку `/FiscalDrive/Receipt/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс чека в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы получить информацию об уже зарегистрированных чеков в ФМ (который еще не стерлись из памяти ФМ после отправки их на сервер ОФД), то откройте вкладку `/FiscalDrive/Receipt/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс чека в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "TerminalID": "ZZ000000000000",
@@ -548,8 +548,8 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
         "ItemsCount": 2
     }
     ```
-- Для того чтобы закрыть ZReport, откройте вкадку `/FiscalDrive/ZReport/Close/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет закрыть ZReport в ФМ.
-- Для того чтобы получить информацию о ZReport в ФМ, то откройте вкадку `/FiscalDrive/ZReport/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы закрыть ZReport, откройте вкладку `/FiscalDrive/ZReport/Close/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится ответ `OK`. Таким образом будет закрыть ZReport в ФМ.
+- Для того чтобы получить информацию о ZReport в ФМ, то откройте вкладку `/FiscalDrive/ZReport/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "TerminalID": "ZZ000000000000",
@@ -573,7 +573,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
         "LastReceiptSeq": 1
     }
     ```
-- Для того чтобы получить информацию о фискальной памяти в ФМ, то откройте вкадку `/FiscalDrive/FiscalMemory/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы получить информацию о фискальной памяти в ФМ, то откройте вкладку `/FiscalDrive/FiscalMemory/Info/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `Index` индекс ZReport в памяти ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "TerminalID": "ZZ000000000000",
@@ -603,7 +603,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     * `ZReportsCount` - кол-во ZReport в ФМ
     * `ReceiptsCount` - кол-во чеков в ФМ которые еще не были отправлены на сервер ОФД.
     * `***Accomulator` - общая накопленная сумма.
-- Для того чтобы отправить файлы чеков из БД на сервер ОФД, то откройте вкадку `/DataBase/Files/Sync/FullReceipts/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы отправить файлы чеков из БД на сервер ОФД, то откройте вкладку `/DataBase/Files/Sync/FullReceipts/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "Items": [
@@ -618,14 +618,14 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
     ```
     где:
     * `StatusText: Acknowledged` - файл чека был отправлен на сервер ОФД и ответ от него успешно принят ФМ и ФМ стер чек из памяти. Выполните операцию `/FiscalDrive/FiscalMemory/Info/{FactoryID}` и убедитесь что поле стало `ReceiptsCount: 0`. 
-- Для того чтобы узнать индексы ZReport которые еще не были отправлены на сервер ОФД, то то откройте вкадку `/FiscalDrive/ZReport/UnackowledgedIndexes/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы узнать индексы ZReport которые еще не были отправлены на сервер ОФД, то то откройте вкладку `/FiscalDrive/ZReport/UnackowledgedIndexes/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     [
         0
     ]
     ```
     в данном ответе ZReport с индексом 0 еще не были отправлены на сервер ОФД.
-- Для того чтобы отправить ZReport из ФМ на сервер ОФД, то откройте вкадку `/DataBase/Files/Sync/ZReports/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
+- Для того чтобы отправить ZReport из ФМ на сервер ОФД, то откройте вкладку `/DataBase/Files/Sync/ZReports/{FactoryID}`, нажмите `Try it out`, вставьте в поле `FactoryID` заводской номер ФМ, в поле `ItemsCount` максимальное кол-во файлов (не более 32), нажмите `Execute`. В разделе `Server response` появится JSON-ответ, например:
     ```json
     {
         "Items": [
