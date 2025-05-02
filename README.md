@@ -351,7 +351,8 @@ _Для тестирования REST-API сервиса посредством 
 |------|:---:|----------|
 | Name | string | Наименование товара или услуги |
 | Barcode | string | Товарный код |
-| Label | string | Код маркировки |
+| Label | string | Код маркировки (_deprecated_) |
+| Labels | []string | Коды маркировки (не более 300 элементов) |
 | SPIC | string | ИКПУ (идентификационный код продукта и услуги по Единому электронному каталогу) |
 | Units | uint64 | Единица измерения |
 | PackageCode | string | Код упаковки |
@@ -402,8 +403,11 @@ $$ReceivedCard + ReceivedCash - \sum_{i=1}^{N} Price_i - Discount_i - Other_i \l
 
 $$Price_i - Discount_i - Other_i \ge 0$$
 
-$$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
+$$ReceivedCard, ReceivedCash, Discount_i, Other_i \ge 0$$
 
+$$Price_i > 0$$
+
+> 10000 - разрешенная погрешность в 100 сум 00 тийин
 
 ## Порядок тестирования
 
@@ -476,7 +480,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
             {
                 "Name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "Barcode": "1247059838170",
-                "Label": "8919525180645",
+                "Labels": ["8919525180645","8919525180646"],
                 "SPIC": "90363039122553629",
                 "Units": 244272402,
                 "PackageCode": "11580107597508352307",
@@ -494,7 +498,7 @@ $$ReceivedCard, ReceivedCash, Price_i, Discount_i, Other_i \ge 0$$
             {
                 "Name": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
                 "Barcode": "5868469653263",
-                "Label": "6573308424703",
+                "Labels": ["6573308424703","6573308424704","6573308424705","6573308424706"],
                 "SPIC": "07219001697739637",
                 "Units": 142235374,
                 "PackageCode": "87290838460667151841",
