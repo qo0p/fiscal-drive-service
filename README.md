@@ -481,6 +481,7 @@ $$Price_i > 0$$
     {
         "ReceivedCash": 50000,
         "ReceivedCard": 50000,
+        "PaymentType": 4,
         "Time": "2024-09-04 09:45:38",
         "Type": 0,
         "Operation": 0,
