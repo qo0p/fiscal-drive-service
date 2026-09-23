@@ -500,6 +500,7 @@ $$Price_i > 0$$
                 "Units": 244272402,
                 "PackageCode": "11580107597508352307",
                 "OwnerType": 1,
+                "RecipeID": "recipe-001",
                 "Price": 100000,
                 "VATPercent": 12,
                 "VAT": 5357,
